@@ -19,7 +19,6 @@ def filter_entries(
 ) -> List[LogEntry]:
     items = list(entries)
 
-    # Support alternate parameter names if tests use them
     if start is None:
         start = kwargs.get("since") or kwargs.get("after")
     if end is None:

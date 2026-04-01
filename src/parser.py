@@ -16,10 +16,8 @@ def parse_line(line: str) -> Optional[LogEntry]:
         return None
 
     raw = line.rstrip("\n")
-    parts = raw.strip().split(maxsplit=3)
+    parts = raw.split(maxsplit=3)
 
-    # Expected format:
-    # YYYY-MM-DD HH:MM:SS LEVEL message...
     if len(parts) < 4:
         return None
 
@@ -31,9 +29,11 @@ def parse_line(line: str) -> Optional[LogEntry]:
     except ValueError:
         return None
 
+    level = level_part.strip("[]").upper()
+
     return LogEntry(
         timestamp=timestamp,
-        level=level_part.strip("[]").upper(),
+        level=level,
         message=message,
         raw=raw,
     )
